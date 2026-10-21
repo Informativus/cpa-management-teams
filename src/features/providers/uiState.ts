@@ -1,3 +1,4 @@
+import { scopedLocalStorage } from '@/services/storage/scopedStorage';
 import { isRecord } from '@/utils/helpers';
 import { PROVIDER_BRAND_ORDER } from './descriptors';
 import {
@@ -78,7 +79,7 @@ export const readProvidersWorkbenchUiState = (): ProvidersWorkbenchUiState => {
   if (typeof window === 'undefined') return createDefaultProvidersWorkbenchUiState();
 
   try {
-    const raw = window.localStorage.getItem(PROVIDERS_UI_STATE_KEY);
+    const raw = scopedLocalStorage.getItem(PROVIDERS_UI_STATE_KEY);
     if (!raw) return createDefaultProvidersWorkbenchUiState();
 
     const parsed = JSON.parse(raw);
@@ -105,7 +106,7 @@ export const readProvidersWorkbenchUiState = (): ProvidersWorkbenchUiState => {
 export const writeProvidersWorkbenchUiState = (state: ProvidersWorkbenchUiState) => {
   if (typeof window === 'undefined') return;
   try {
-    window.localStorage.setItem(PROVIDERS_UI_STATE_KEY, JSON.stringify(state));
+    scopedLocalStorage.setItem(PROVIDERS_UI_STATE_KEY, JSON.stringify(state));
   } catch {
     // ignore storage failures
   }

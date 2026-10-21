@@ -1,3 +1,4 @@
+import { scopedLocalStorage } from '@/services/storage/scopedStorage';
 /**
  * 本地存储混淆服务（可逆）
  * 基于原项目 src/utils/secure-storage.js
@@ -31,7 +32,7 @@ class ObfuscatedStorageService {
     const stringValue = JSON.stringify(value);
     const storedValue = obfuscate ? obfuscateData(stringValue) : stringValue;
 
-    localStorage.setItem(key, storedValue);
+    scopedLocalStorage.setItem(key, storedValue);
   }
 
   /**
@@ -40,7 +41,7 @@ class ObfuscatedStorageService {
   getItem<T = unknown>(key: string, options: StorageOptions = {}): T | null {
     const obfuscate = options.obfuscate ?? options.encrypt ?? true;
 
-    const raw = localStorage.getItem(key);
+    const raw = scopedLocalStorage.getItem(key);
     if (raw === null) return null;
 
     try {
@@ -68,7 +69,7 @@ class ObfuscatedStorageService {
    * 删除数据
    */
   removeItem(key: string): void {
-    localStorage.removeItem(key);
+    scopedLocalStorage.removeItem(key);
   }
 
   /**
@@ -76,7 +77,7 @@ class ObfuscatedStorageService {
    */
   migratePlaintextKeys(keys: string[]): void {
     keys.forEach((key) => {
-      const raw = localStorage.getItem(key);
+      const raw = scopedLocalStorage.getItem(key);
       if (!raw) return;
 
       // 如果已经是加密格式，跳过

@@ -1,3 +1,4 @@
+import { scopedLocalStorage } from '@/services/storage/scopedStorage';
 /**
  * LocalStorage Hook
  */
@@ -10,7 +11,7 @@ export function useLocalStorage<T>(
 ): [T, (value: T | ((val: T) => T)) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
-      const item = window.localStorage.getItem(key);
+      const item = scopedLocalStorage.getItem(key);
       return item ? (JSON.parse(item) as T) : initialValue;
     } catch (error) {
       console.error(`Error reading localStorage key "${key}":`, error);
@@ -24,7 +25,7 @@ export function useLocalStorage<T>(
         const valueToStore = value instanceof Function ? value(currentValue) : value;
 
         try {
-          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+          scopedLocalStorage.setItem(key, JSON.stringify(valueToStore));
         } catch (error) {
           console.error(`Error setting localStorage key "${key}":`, error);
         }

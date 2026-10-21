@@ -1,4 +1,5 @@
 import { DEFAULT_API_PORT, MANAGEMENT_API_PREFIX } from './constants';
+import { getPanelBasePath } from './panelScope';
 
 export const normalizeApiBase = (input: string): string => {
   let base = (input || '').trim();
@@ -21,7 +22,7 @@ export const detectApiBaseFromLocation = (): string => {
   try {
     const { protocol, hostname, port } = window.location;
     const normalizedPort = port ? `:${port}` : '';
-    return normalizeApiBase(`${protocol}//${hostname}${normalizedPort}`);
+    return normalizeApiBase(`${protocol}//${hostname}${normalizedPort}${getPanelBasePath()}`);
   } catch (error) {
     console.warn('Failed to detect api base from location, fallback to default', error);
     return normalizeApiBase(`http://localhost:${DEFAULT_API_PORT}`);

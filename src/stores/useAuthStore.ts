@@ -1,3 +1,4 @@
+import { scopedLocalStorage } from '@/services/storage/scopedStorage';
 /**
  * 认证状态管理
  * 从原项目 src/modules/login.js 和 src/core/connection.js 迁移
@@ -49,7 +50,7 @@ export const useAuthStore = create<AuthStoreState>()(
         restoreSessionPromise = (async () => {
           obfuscatedStorage.migratePlaintextKeys(['apiBase', 'apiUrl', 'managementKey']);
 
-          const wasLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+          const wasLoggedIn = scopedLocalStorage.getItem('isLoggedIn') === 'true';
           const legacyBase =
             obfuscatedStorage.getItem<string>('apiBase') ||
             obfuscatedStorage.getItem<string>('apiUrl', { encrypt: true });
@@ -138,9 +139,9 @@ export const useAuthStore = create<AuthStoreState>()(
             connectionStatus: 'connected',
           });
           if (rememberPassword) {
-            localStorage.setItem('isLoggedIn', 'true');
+            scopedLocalStorage.setItem('isLoggedIn', 'true');
           } else {
-            localStorage.removeItem('isLoggedIn');
+            scopedLocalStorage.removeItem('isLoggedIn');
           }
         } catch (error: unknown) {
           set({ connectionStatus: 'error' });
@@ -164,7 +165,7 @@ export const useAuthStore = create<AuthStoreState>()(
           supportsPlugin: false,
           connectionStatus: 'disconnected',
         });
-        localStorage.removeItem('isLoggedIn');
+        scopedLocalStorage.removeItem('isLoggedIn');
       },
 
       // 检查认证状态
