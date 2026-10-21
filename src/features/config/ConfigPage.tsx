@@ -1,3 +1,4 @@
+import { scopedLocalStorage } from '@/services/storage/scopedStorage';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -79,12 +80,14 @@ export function ConfigPage() {
   } = useVisualConfig();
 
   const [mode, setMode] = useState<ConfigEditorMode>(() =>
-    requestedFieldEntry ? 'visual' : readSavedMode(localStorage.getItem(CONFIG_MODE_STORAGE_KEY))
+    requestedFieldEntry
+      ? 'visual'
+      : readSavedMode(scopedLocalStorage.getItem(CONFIG_MODE_STORAGE_KEY))
   );
   const [activeSection, setActiveSection] = useState<ConfigTabId>(
     () =>
       requestedFieldEntry?.sectionId ??
-      readSavedSection(localStorage.getItem(CONFIG_SECTION_STORAGE_KEY))
+      readSavedSection(scopedLocalStorage.getItem(CONFIG_SECTION_STORAGE_KEY))
   );
   const handledRequestedFieldRef = useRef<string | null>(null);
   // 首载入场：挂载后一个预算周期内为 true；此后切 tab 新挂载的卡片不再播入场。
@@ -96,7 +99,7 @@ export function ConfigPage() {
 
   // 旧「简单/完整」双模式已退役，清掉遗留的持久化键。
   useEffect(() => {
-    localStorage.removeItem(LEGACY_EDITOR_MODE_STORAGE_KEY);
+    scopedLocalStorage.removeItem(LEGACY_EDITOR_MODE_STORAGE_KEY);
   }, []);
 
   const doc = useConfigDocument({
@@ -136,7 +139,7 @@ export function ConfigPage() {
     if (mode !== 'visual' || !visualParseError) return;
 
     setMode('source');
-    localStorage.setItem(CONFIG_MODE_STORAGE_KEY, 'source');
+    scopedLocalStorage.setItem(CONFIG_MODE_STORAGE_KEY, 'source');
     showNotification(
       t('config_management.visual_mode_unavailable_detail', { message: visualParseError }),
       'error'
@@ -174,7 +177,7 @@ export function ConfigPage() {
       }
 
       setMode(nextMode);
-      localStorage.setItem(CONFIG_MODE_STORAGE_KEY, nextMode);
+      scopedLocalStorage.setItem(CONFIG_MODE_STORAGE_KEY, nextMode);
     },
     [
       applyVisualChangesToYaml,
@@ -190,7 +193,7 @@ export function ConfigPage() {
 
   const handleSectionChange = useCallback((sectionId: ConfigTabId) => {
     setActiveSection(sectionId);
-    localStorage.setItem(CONFIG_SECTION_STORAGE_KEY, sectionId);
+    scopedLocalStorage.setItem(CONFIG_SECTION_STORAGE_KEY, sectionId);
   }, []);
 
   const { jumpToField } = useFieldJump({
@@ -204,7 +207,7 @@ export function ConfigPage() {
     }
 
     handledRequestedFieldRef.current = requestedFieldEntry.fieldId;
-    localStorage.setItem(CONFIG_MODE_STORAGE_KEY, 'visual');
+    scopedLocalStorage.setItem(CONFIG_MODE_STORAGE_KEY, 'visual');
     jumpToField(requestedFieldEntry);
 
     const nextSearchParams = new URLSearchParams(location.search);

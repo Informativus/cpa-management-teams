@@ -1,10 +1,6 @@
+import { scopedLocalStorage, scopedSessionStorage } from '@/services/storage/scopedStorage';
 export const AUTH_FILES_SORT_MODES = ['default', 'az', 'priority'] as const;
-export const AUTH_FILES_STATUS_FILTER_MODES = [
-  'all',
-  'enabled',
-  'disabled',
-  'problem',
-] as const;
+export const AUTH_FILES_STATUS_FILTER_MODES = ['all', 'enabled', 'disabled', 'problem'] as const;
 
 export type AuthFilesSortMode = (typeof AUTH_FILES_SORT_MODES)[number];
 export type AuthFilesStatusFilterMode = (typeof AUTH_FILES_STATUS_FILTER_MODES)[number];
@@ -51,8 +47,8 @@ export const readAuthFilesUiState = (): AuthFilesUiState | null => {
   if (typeof window === 'undefined') return null;
   try {
     return (
-      readAuthFilesUiStateFromStorage(window.localStorage) ??
-      readAuthFilesUiStateFromStorage(window.sessionStorage)
+      readAuthFilesUiStateFromStorage(scopedLocalStorage) ??
+      readAuthFilesUiStateFromStorage(scopedSessionStorage)
     );
   } catch {
     return null;
@@ -62,12 +58,12 @@ export const readAuthFilesUiState = (): AuthFilesUiState | null => {
 export const writeAuthFilesUiState = (state: AuthFilesUiState) => {
   if (typeof window === 'undefined') return;
   try {
-    window.localStorage.setItem(AUTH_FILES_UI_STATE_KEY, JSON.stringify(state));
+    scopedLocalStorage.setItem(AUTH_FILES_UI_STATE_KEY, JSON.stringify(state));
   } catch {
     // ignore
   }
   try {
-    window.sessionStorage.removeItem(AUTH_FILES_UI_STATE_KEY);
+    scopedSessionStorage.removeItem(AUTH_FILES_UI_STATE_KEY);
   } catch {
     // ignore
   }
@@ -76,7 +72,7 @@ export const writeAuthFilesUiState = (state: AuthFilesUiState) => {
 export const readPersistedAuthFilesCompactMode = (): boolean | null => {
   if (typeof window === 'undefined') return null;
   try {
-    const raw = window.localStorage.getItem(AUTH_FILES_COMPACT_MODE_KEY);
+    const raw = scopedLocalStorage.getItem(AUTH_FILES_COMPACT_MODE_KEY);
     if (raw === null) return null;
     return JSON.parse(raw) === true;
   } catch {
@@ -87,7 +83,7 @@ export const readPersistedAuthFilesCompactMode = (): boolean | null => {
 export const writePersistedAuthFilesCompactMode = (compactMode: boolean) => {
   if (typeof window === 'undefined') return;
   try {
-    window.localStorage.setItem(AUTH_FILES_COMPACT_MODE_KEY, JSON.stringify(compactMode));
+    scopedLocalStorage.setItem(AUTH_FILES_COMPACT_MODE_KEY, JSON.stringify(compactMode));
   } catch {
     // ignore
   }

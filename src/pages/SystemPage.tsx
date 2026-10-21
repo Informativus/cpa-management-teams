@@ -1,3 +1,4 @@
+import { scopedLocalStorage } from '@/services/storage/scopedStorage';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card } from '@/components/ui/Card';
@@ -170,7 +171,7 @@ export function SystemPage() {
         auth.logout();
         if (typeof localStorage === 'undefined') return;
         const keysToRemove = [STORAGE_KEY_AUTH, 'isLoggedIn', 'apiBase', 'apiUrl', 'managementKey'];
-        keysToRemove.forEach((key) => localStorage.removeItem(key));
+        keysToRemove.forEach((key) => scopedLocalStorage.removeItem(key));
         showNotification(t('notification.login_storage_cleared'), 'success');
       },
     });
