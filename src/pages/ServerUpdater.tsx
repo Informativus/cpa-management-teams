@@ -32,6 +32,7 @@ export function ServerUpdater() {
     const connection = captureVersionApi();
     session.current = connection;
     let alive = true;
+    let supported = true;
     let timer: ReturnType<typeof setTimeout>;
     const current = () => alive && revision === apiClient.getConnectionRevision();
     const poll = async () => {
@@ -43,11 +44,13 @@ export function ServerUpdater() {
       } catch (cause) {
         if (!current()) return;
         // An ordinary CPA without the controller retains its version-check action.
-        if ((cause as { status?: number }).status !== 404) {
+        if ((cause as { status?: number }).status === 404) {
+          supported = false;
+        } else {
           setError(t('system_info.update_status_unavailable'));
         }
       } finally {
-        if (current()) timer = setTimeout(poll, 5000);
+        if (current() && supported) timer = setTimeout(poll, 5000);
       }
     };
     setStatus(undefined);
