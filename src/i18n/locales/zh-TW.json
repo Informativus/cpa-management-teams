@@ -549,7 +549,6 @@
     "reset_confirm_button": "確認重置",
     "reset_not_confirmed": "尚未確認額度重置成功，請重新整理額度後再決定是否重試。",
     "reset_cooldown_failed": "額度已重置，但代理冷卻清除失敗。請在原連線的認證檔案頁面使用「清除冷卻」，不要再次消耗重置卡。",
-
     "reset_success": "已重置「{{name}}」的 Codex 配額",
     "reset_failed": "重置「{{name}}」的 Codex 配額失敗：{{message}}",
     "plan_plus": "Plus",
@@ -1844,7 +1843,24 @@
     "clear_login_title": "本地登入資訊",
     "clear_login_desc": "清理本地儲存的登入資訊並登出。",
     "clear_login_button": "清理登入資訊",
-    "clear_login_confirm": "確認清理本地登入資訊並登出？"
+    "clear_login_confirm": "確認清理本地登入資訊並登出？",
+    "update_button": "更新至 {{version}}",
+    "update_install": "安裝更新",
+    "update_confirm": "CPA 將短暫重新啟動，進行中的請求可能中斷。設定和授權將保留。",
+    "update_status_unavailable": "無法取得狀態。正在檢查結果，不會重複啟動更新。",
+    "update_catalog_unavailable": "無法取得可安裝的分支版本，請稍後重試。",
+    "update_manual": "最新版本：{{version}}。此連線尚未設定面板內安裝。",
+    "update_reload": "重新載入面板",
+    "update_states": {
+      "queued": "更新已排入佇列",
+      "downloading": "正在下載並驗證版本",
+      "backing_up": "正在儲存備份",
+      "deploying": "正在安裝更新",
+      "verifying": "正在驗證新版本",
+      "succeeded": "已安裝 {{version}}",
+      "failed": "更新未安裝，可重新檢查。",
+      "unknown": "安裝結果尚未確認。檢查狀態期間禁止重複啟動。"
+    }
   },
   "notification": {
     "trusted_proxies_restart_required": "可信任代理設定已儲存，重新啟動後端後生效。",

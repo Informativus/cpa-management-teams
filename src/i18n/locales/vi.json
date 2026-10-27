@@ -1773,7 +1773,24 @@
     "clear_login_title": "Dữ liệu đăng nhập cục bộ",
     "clear_login_desc": "Xóa dữ liệu đăng nhập đã lưu cục bộ và đăng xuất.",
     "clear_login_button": "Xóa dữ liệu đăng nhập",
-    "clear_login_confirm": "Xóa dữ liệu đăng nhập cục bộ và đăng xuất ngay?"
+    "clear_login_confirm": "Xóa dữ liệu đăng nhập cục bộ và đăng xuất ngay?",
+    "update_button": "Cập nhật lên {{version}}",
+    "update_install": "Cài đặt bản cập nhật",
+    "update_confirm": "CPA sẽ khởi động lại trong thời gian ngắn. Yêu cầu đang chạy có thể bị gián đoạn. Cấu hình và ủy quyền sẽ được giữ lại.",
+    "update_status_unavailable": "Không lấy được trạng thái. Đang kiểm tra kết quả mà không chạy lại cập nhật.",
+    "update_catalog_unavailable": "Không lấy được bản phát hành fork có thể cài đặt. Vui lòng kiểm tra lại sau.",
+    "update_manual": "Phiên bản mới nhất: {{version}}. Kết nối này chưa được cấu hình cài đặt từ bảng điều khiển.",
+    "update_reload": "Tải lại bảng điều khiển",
+    "update_states": {
+      "queued": "Đã xếp hàng cập nhật",
+      "downloading": "Đang tải và xác minh bản phát hành",
+      "backing_up": "Đang lưu bản sao lưu",
+      "deploying": "Đang cài đặt cập nhật",
+      "verifying": "Đang xác minh phiên bản mới",
+      "succeeded": "Đã cài phiên bản {{version}}",
+      "failed": "Chưa cài đặt cập nhật. Có thể kiểm tra lại.",
+      "unknown": "Chưa xác nhận kết quả cài đặt. Tạm chặn chạy lại trong khi kiểm tra trạng thái."
+    }
   },
   "notification": {
     "request_log_updated": "Đã cập nhật cài đặt ghi log yêu cầu",

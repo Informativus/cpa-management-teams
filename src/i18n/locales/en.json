@@ -1817,7 +1817,24 @@
     "clear_login_title": "Local Login Data",
     "clear_login_desc": "Clear locally saved login data and sign out.",
     "clear_login_button": "Clear login data",
-    "clear_login_confirm": "Clear local login data and sign out now?"
+    "clear_login_confirm": "Clear local login data and sign out now?",
+    "update_button": "Update to {{version}}",
+    "update_install": "Install update",
+    "update_confirm": "CPA will restart briefly. Active requests may be interrupted. Settings and authorizations will be preserved.",
+    "update_status_unavailable": "Status unavailable. Checking the result without starting another update.",
+    "update_catalog_unavailable": "An installable fork release could not be fetched. Check again later.",
+    "update_manual": "Latest version: {{version}}. Panel installation is not configured for this connection.",
+    "update_reload": "Reload panel",
+    "update_states": {
+      "queued": "Update queued",
+      "downloading": "Downloading and verifying release",
+      "backing_up": "Saving backup",
+      "deploying": "Installing update",
+      "verifying": "Verifying new version",
+      "succeeded": "Version {{version}} installed",
+      "failed": "Update was not installed. You can check again.",
+      "unknown": "Installation outcome is not confirmed. Restart is blocked while checking its status."
+    }
   },
   "notification": {
     "trusted_proxies_restart_required": "Trusted proxy settings saved. Restart the backend to apply them.",
